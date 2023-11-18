@@ -3,6 +3,8 @@ const app = express()
 const port = 5000
 const {User} = require("./model/user")
 
+const config = require('./config/key');
+
 //application/x-www-form-urlencoded 상태의 데이터를 분석해서 가져온다.
 app.use(express.urlencoded({extended: true}));
 //application/json 상태의 데이터를 분석해서 가져온다.
@@ -10,7 +12,7 @@ app.use(express.json());
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://tmskan8:rlatkddud8@boilerplate.sdn0sa9.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(config.mongoURI)
     .then(() => console.log("MongoDB Connected..."))
     .catch(err => console.log(err))
 
