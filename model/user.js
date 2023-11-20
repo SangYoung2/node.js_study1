@@ -78,6 +78,25 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
     })
 }
 
+userSchema.statics.findByToken = function (token, cb) {
+    let user = this;
+
+    // 토큰을 decode(복호화)한다.
+    jwt.verify(token, 'secretToken', function (err, decoded) {
+        // 유저 아이디를 이용해서 유저를 찾은 다음에
+        // 클라이언트에서 가져온 token과 db에 보관된 토큰이 일치하는지 확인
+
+        user.findOne({"_id": decoded, "token": token})
+            .then(data => {
+                cb(null, data)
+            }).catch(err => {
+                console.log("실패")
+            })
+
+
+    })
+}
+
 const User = mongoose.model('User', userSchema) // 생성된 스키마를 모델로 감싸준다.
 
 module.exports = {User} // 다른 파일에서도 사용할 수 있도록 해준다.
