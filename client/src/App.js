@@ -1,6 +1,6 @@
 import './App.css';
 import {Route, Routes, BrowserRouter} from "react-router-dom";
-import LandingPage from "./components/views/LendingPage/LendigPage";
+import LandingPage from "./components/views/LandingPage/LandigPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 function App() {

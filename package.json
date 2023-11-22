@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node server/index.js",
-    "backend": "nodemon server/index.js"
+    "backend": "nodemon server/index.js",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
     "cookie-parser": "~1.4.4",
     "create-react-app": "^5.0.1",
     "debug": "~2.6.9",
