@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {registerUser} from "../../../_action/user_action";
 import Auth from "../../../hoc/auth";
+import {useNavigate} from "react-router-dom";
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // State (데이터를 저장하는 곳)
     const [Email, setEmail] = useState("")
@@ -45,7 +47,7 @@ function RegisterPage(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if(response.payload.success) {
-                    alert("회원가입 성공")
+                    navigate('/login')
                 }
             })
             .catch(() => {

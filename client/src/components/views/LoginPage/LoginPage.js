@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {loginUser} from '../../../_action/user_action';
 import Auth from "../../../hoc/auth";
+import {useNavigate} from "react-router-dom";
 
 function LoginPage(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // State (데이터를 저장하는 곳)
     const [Email, setEmail] = useState("")
@@ -30,7 +32,7 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess) {
-                    alert('로그인성공')
+                    navigate('/')
                 }else {
                     alert('Error')
                 }
@@ -52,7 +54,7 @@ function LoginPage(props) {
                 <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHandler}/>
                 <br/>
-                <button>
+                <button type='submit'>
                     Login
                 </button>
             </form>
