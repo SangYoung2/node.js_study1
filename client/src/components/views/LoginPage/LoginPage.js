@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Axios} from "axios";
 import {useDispatch} from "react-redux";
-import {LOGIN_USER} from "../../../_action/types";
+import {loginUser} from '../../../_action/user_action';
+import Auth from "../../../hoc/auth";
 
 function LoginPage(props) {
     const dispatch = useDispatch();
@@ -27,10 +27,10 @@ function LoginPage(props) {
             password: Password
         }
 
-        dispatch(LOGIN_USER(body))
+        dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess) {
-                    props.history.push('/')
+                    alert('로그인성공')
                 }else {
                     alert('Error')
                 }
@@ -60,4 +60,4 @@ function LoginPage(props) {
     );
 }
 
-export default LoginPage;
+export default Auth(LoginPage, false);
