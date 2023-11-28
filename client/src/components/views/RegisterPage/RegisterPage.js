@@ -45,14 +45,8 @@ function RegisterPage(props) {
         }
 
         dispatch(registerUser(body))
-            .then(response => {
-                if(response.payload.success) {
-                    navigate('/login')
-                }
-            })
-            .catch(() => {
-                alert("Error")
-            })
+            .then(response => {if(response.payload.success) {navigate('/login')}})
+            .catch(() => {alert("Error")})
 
     }
 
