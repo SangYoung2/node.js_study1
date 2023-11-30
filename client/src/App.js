@@ -3,12 +3,14 @@ import {Route, Routes, BrowserRouter} from "react-router-dom";
 import LandingPage from "./components/views/LandingPage/LandigPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+import NavBar from "./components/views/NavBar/NavBar";
 function App() {
 
     return (
       <BrowserRouter>
           {/* A <Switch> looks through its children <Routes> and
           renders the first one that matches the current URL. */}
+          <NavBar/>
           <Routes>
             <Route exact path="/" element={<LandingPage/>}/>
             <Route exact path="/login" element={<LoginPage/>}/>

@@ -4,10 +4,12 @@ import Auth from "../../../hoc/auth";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {log} from "debug";
+import NavBar from "../NavBar/NavBar";
 
 
 function LandingPage(props) {
     const navigate = useNavigate();
+    let userAuth = false;
 
     useEffect(() => {
         axios.get('/api/hello')
@@ -27,49 +29,47 @@ function LandingPage(props) {
                 .catch(err => console.log(err))
         }
         else {
-            navigate('/api/users/login')
+            navigate('login')
         }
     }
 
     useEffect(() => {
         axios.get('/api/users/auth')
             .then(res => {
-                console.log(res.data.isAuth)
-                if(res.data.isAuth) {
-                    console.log("True")
-                    return(
-                        <div style={{
-                            display: 'flex', justifyContent: 'center', alignItems: 'center',
-                            width: '100%', height: '100vh'
-                        }}>
-                            <h2>시작페이지</h2>
-                            <button onClick={onClickHandler}>로그아웃</button>
-                        </div>
-                    )
-                }else {
-                    console.log("False")
-                    return(
-                        <div style={{
-                            display: 'flex', justifyContent: 'center', alignItems: 'center',
-                            width: '100%', height: '100vh'
-                        }}>
-                            <h2>시작페이지</h2>
-                            <button onClick={onClickHandler}>로그인</button>
-                        </div>
-                    )
-                }
+                userAuth = res.data.isAuth;
             })
+            .catch(err => {
+                console.log(err)})
     })
 
-    // return(
-    //     <div style={{
-    //         display: 'flex', justifyContent: 'center', alignItems: 'center',
-    //         width: '100%', height: '100vh'
-    //     }}>
-    //         <h2>시작페이지</h2>
-    //         <button  onClick={onClickHandler}>로그아웃</button>
-    //     </div>
-    // )
+    function UserGreeting(props) {
+        return(
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
+                width: '100%', height: '100vh'
+            }}>
+                <h2>시작페이지</h2><br/>
+                <button onClick={onClickHandler}>로그아웃</button>
+            </div>
+        )
+    }
+
+    function GuestGreeting(props){
+        return(
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
+                width: '100%', height: '100vh'
+            }}>
+                <h2>시작페이지</h2><br/>
+                <button onClick={onClickHandler}>로그인</button>
+            </div>
+        )
+    }
+    if(!userAuth) {
+        return <GuestGreeting/>
+    }else {
+        return <UserGreeting/>
+    }
 }
 
 export default Auth(LandingPage, null)
